@@ -25,13 +25,21 @@ app.use((req, res, next) => {
 });
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.json({
+    message: 'HelloAlex AI Backend Running 🚀',
+    status: 'ok',
+    api: '/api/test'
+  });
+});
+
 app.get('/api/test', (req, res) => {
   res.json({
     status: 'ok',
     message: 'AI Customer Support Agent API is running 🤖',
     version: '1.0.0',
     timestamp: new Date().toISOString(),
-    model: 'gemini-2.0-flash',
+    model: 'gemini-2.5-flash',
   });
 });
 
