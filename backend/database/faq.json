@@ -1,0 +1,72 @@
+[
+  {
+    "id": "faq_001",
+    "category": "shipping",
+    "question": "How long does shipping take?",
+    "keywords": ["shipping", "ship", "delivery time", "how long", "arrive", "arrival", "days", "week"],
+    "answer": "Standard shipping typically takes 3-7 business days. Expedited shipping takes 1-2 business days. Free standard shipping is available on orders over $50. We ship to all 50 US states and over 100 countries worldwide."
+  },
+  {
+    "id": "faq_002",
+    "category": "return",
+    "question": "What is your return policy?",
+    "keywords": ["return", "returns", "send back", "return policy", "give back", "exchange"],
+    "answer": "We offer hassle-free 30-day returns on all items. Products must be in their original condition with tags attached. To initiate a return, contact our support team or visit the My Orders page. Refunds are processed within 5-7 business days after we receive the item."
+  },
+  {
+    "id": "faq_003",
+    "category": "refund",
+    "question": "How do I get a refund?",
+    "keywords": ["refund", "refunds", "money back", "get my money", "reimbursement", "charge", "credit"],
+    "answer": "Once your return is received and inspected, your refund will be processed within 5-7 business days. Refunds are credited to your original payment method. For credit cards, it may take an additional 3-5 business days to appear on your statement. We also offer store credit as an alternative."
+  },
+  {
+    "id": "faq_004",
+    "category": "cancellation",
+    "question": "Can I cancel my order?",
+    "keywords": ["cancel", "cancellation", "stop order", "undo order", "cancel my order"],
+    "answer": "Orders can be cancelled within 1 hour of placement before they enter processing. To cancel, go to My Orders and select Cancel. Once shipped, orders cannot be cancelled but you can initiate a return upon delivery. For immediate cancellation requests, contact our support team."
+  },
+  {
+    "id": "faq_005",
+    "category": "payment",
+    "question": "What payment methods do you accept?",
+    "keywords": ["payment", "pay", "credit card", "debit", "paypal", "apple pay", "google pay", "methods"],
+    "answer": "We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, Apple Pay, Google Pay, and ShopEase Store Credit. All transactions are secured with 256-bit SSL encryption."
+  },
+  {
+    "id": "faq_006",
+    "category": "tracking",
+    "question": "How do I track my order?",
+    "keywords": ["track", "tracking", "where is my", "track my order", "tracking number", "location"],
+    "answer": "You can track your order by visiting My Orders on our website or app. Enter your order ID or tracking number on our tracking page. You'll also receive email and SMS updates at each shipping milestone. Tracking information is usually available within 24 hours of shipment."
+  },
+  {
+    "id": "faq_007",
+    "category": "account",
+    "question": "How do I reset my password?",
+    "keywords": ["password", "reset password", "forgot password", "login", "account", "sign in"],
+    "answer": "To reset your password, click 'Forgot Password' on the login page and enter your email address. You'll receive a reset link within 5 minutes. If you don't see it, check your spam folder. For security, password reset links expire after 24 hours."
+  },
+  {
+    "id": "faq_008",
+    "category": "warranty",
+    "question": "Do your products come with a warranty?",
+    "keywords": ["warranty", "guarantee", "defective", "broken", "damaged", "repair", "replacement"],
+    "answer": "All electronics come with a minimum 1-year manufacturer warranty. ShopEase offers an extended 2-year warranty for $29.99. For defective items, we offer immediate replacement or full refund within 30 days of delivery. Contact support with your order ID and photos of the defect."
+  },
+  {
+    "id": "faq_009",
+    "category": "promo",
+    "question": "How do I use a promo code?",
+    "keywords": ["promo", "coupon", "discount", "promotion", "code", "voucher", "deal", "offer"],
+    "answer": "Enter your promo code at checkout in the 'Promo Code' field before payment. Only one promo code can be applied per order. Codes are case-insensitive and cannot be combined with other offers unless stated. Expired codes cannot be applied retroactively."
+  },
+  {
+    "id": "faq_010",
+    "category": "international",
+    "question": "Do you ship internationally?",
+    "keywords": ["international", "overseas", "outside usa", "global", "worldwide", "abroad", "country"],
+    "answer": "Yes! We ship to over 100 countries. International shipping takes 7-21 business days depending on destination. International orders may be subject to customs fees and import duties, which are the buyer's responsibility. Free shipping applies to US domestic orders only."
+  }
+]
