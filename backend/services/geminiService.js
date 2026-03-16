@@ -25,34 +25,51 @@ Voice Agent Guidelines:
 You receive context about orders, FAQs, and customer sentiment in system notes enclosed in [System: ...] tags. Use this information naturally in your responses.`;
 
 async function generateAgentResponse(userMessage, conversationHistory = [], contextData = {}) {
-  try {
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
-      systemInstruction: buildSystemInstruction(contextData),
-    });
+  const models = ["gemini-2.5-flash", "gemini-1.5-flash"];
+  let lastError;
 
-    // Build Gemini chat history
-    const history = conversationHistory
-      .filter((msg) => msg.role === 'user' || msg.role === 'model')
-      .map((msg) => ({
-        role: msg.role,
-        parts: [{ text: msg.content }],
-      }));
+  for (const modelName of models) {
+    try {
+      const model = genAI.getGenerativeModel({
+        model: modelName,
+        systemInstruction: buildSystemInstruction(contextData),
+      });
 
-    const chat = model.startChat({ history });
-    const result = await model.generateContent(`${userMessage}\n\nIMPORTANT: Respond ONLY in the language used in the message above. Do not mix any other language.`);
-    const responseText = result.response.text();
-    return responseText;
-  } catch (error) {
-    console.error('Gemini API Error:', error.message);
-    if (error.message?.includes('API_KEY_INVALID') || error.message?.includes('API_KEY')) {
-      throw new Error('Invalid or missing Gemini API key. Please check your .env file.');
+      // Build Gemini chat history
+      const history = conversationHistory
+        .filter((msg) => msg.role === 'user' || msg.role === 'model')
+        .map((msg) => ({
+          role: msg.role,
+          parts: [{ text: msg.content }],
+        }));
+
+      const result = await model.generateContent(`${userMessage}\n\nIMPORTANT: Respond ONLY in the language used in the message above. Do not mix any other language.`);
+      const responseText = result.response.text();
+      return responseText;
+    } catch (error) {
+      lastError = error;
+      console.error(`Gemini API Error (${modelName}):`, error.message);
+      
+      // If it's a 503 (high demand), try the next model. 
+      // Otherwise, if it's an API key issue, throw immediately.
+      if (error.message?.includes('API_KEY_INVALID') || error.message?.includes('API_KEY') || error.message?.includes('leaked')) {
+        break; 
+      }
+      
+      if (!error.message?.includes('503') && !error.message?.includes('Service Unavailable')) {
+        break;
+      }
     }
-    if (error.message?.includes('leaked')) {
-      throw new Error('Your Gemini API key was reported as leaked and has been disabled by Google. Please generate a NEW key at https://aistudio.google.com/app/apikey and update your .env file.');
-    }
-    throw new Error('AI service temporarily unavailable. Please try again.');
   }
+
+  // Handle errors after trying models
+  if (lastError.message?.includes('API_KEY_INVALID') || lastError.message?.includes('API_KEY')) {
+    throw new Error('Invalid or missing Gemini API key. Please check your .env file.');
+  }
+  if (lastError.message?.includes('leaked')) {
+    throw new Error('Your Gemini API key was reported as leaked and has been disabled by Google. Please generate a NEW key at https://aistudio.google.com/app/apikey and update your .env file.');
+  }
+  throw new Error('AI service temporarily unavailable due to high demand. Please try again in a moment.');
 }
 
 function buildSystemInstruction(contextData) {
