@@ -45,8 +45,11 @@ async function generateAgentResponse(userMessage, conversationHistory = [], cont
     return responseText;
   } catch (error) {
     console.error('Gemini API Error:', error.message);
-    if (error.message?.includes('API_KEY')) {
+    if (error.message?.includes('API_KEY_INVALID') || error.message?.includes('API_KEY')) {
       throw new Error('Invalid or missing Gemini API key. Please check your .env file.');
+    }
+    if (error.message?.includes('leaked')) {
+      throw new Error('Your Gemini API key was reported as leaked and has been disabled by Google. Please generate a NEW key at https://aistudio.google.com/app/apikey and update your .env file.');
     }
     throw new Error('AI service temporarily unavailable. Please try again.');
   }
