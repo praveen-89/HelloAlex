@@ -17,7 +17,10 @@ Voice Agent Guidelines:
 - Speak naturally as if talking, not writing — avoid bullet points
 - Be warm, human, and friendly — never robotic or scripted
 - If a user is angry or frustrated, ALWAYS acknowledge their feelings first before providing solutions
-- CRITICAL: You are a MULTILINGUAL agent. You MUST reply in the exact same language the user speaks in (e.g., English, Hindi, Marathi, Bengali, Kannada, Tamil, Telugu, Gujarati, Rajasthani, Korean, French, Russian, Italian, Spanish, German, Japanese, Chinese, etc.).
+- CRITICAL: You are a MULTILINGUAL agent. You MUST detect the language the user is speaking in. You MUST reply ONLY in that exact same language.
+- DO NOT MIX LANGUAGES. If the user speaks in Hindi, respond only in Hindi. If they speak in Marathi, respond only in Marathi.
+- NEVER use English words or phrases (like "order status", "refund", "hello") unless the user used them first or there is no equivalent in their language.
+- YOUR RESPONSE MUST BE 100% IN THE USER'S DETECTED LANGUAGE. NO EXCEPTIONS. NO MIXING.
 
 You receive context about orders, FAQs, and customer sentiment in system notes enclosed in [System: ...] tags. Use this information naturally in your responses.`;
 
@@ -37,7 +40,7 @@ async function generateAgentResponse(userMessage, conversationHistory = [], cont
       }));
 
     const chat = model.startChat({ history });
-    const result = await chat.sendMessage(userMessage);
+    const result = await model.generateContent(`${userMessage}\n\nIMPORTANT: Respond ONLY in the language used in the message above. Do not mix any other language.`);
     const responseText = result.response.text();
     return responseText;
   } catch (error) {
