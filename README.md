@@ -1,8 +1,9 @@
 # AI Customer Support Voice Agent 🤖
 
-> A production-ready, voice-powered AI customer support system for e-commerce, built with **Next.js 14**, **Express**, and **Google Gemini 2.0 Flash**.
+> A production-ready, voice-powered AI customer support system for e-commerce, built with **Next.js 14**, **Express**, and **Google Gemini 1.5 Flash** (via **Google Generative AI SDK**), deployed on **Google Cloud**.
 
-![Project Banner](https://img.shields.io/badge/AI-Gemini_2.0_Flash-blue?style=for-the-badge&logo=google)
+![Project Banner](https://img.shields.io/badge/AI-Gemini_1.5_Flash-blue?style=for-the-badge&logo=google)
+![Google Cloud](https://img.shields.io/badge/Google_Cloud-Deployed-4285F4?style=for-the-badge&logo=google-cloud)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
 ![Express](https://img.shields.io/badge/Express-5.x-green?style=for-the-badge&logo=express)
 
@@ -41,7 +42,7 @@
 │    ├─► sentimentService → Detects emotional tone               │
 │    ├─► orderService    → Looks up order / creates return       │
 │    ├─► memoryService   → Stores session + history              │
-│    └─► geminiService   → Generates AI response (Gemini 2.0)    │
+│    ├─► geminiService   → Generates AI response (Gemini 1.5 Flash via Google GenAI SDK)    │
 │                                                                 │
 │  GET /api/agent/conversations — Returns all sessions           │
 │  POST /api/agent/human-reply — Human agent sends message       │
@@ -63,7 +64,7 @@ ai-customer-support-agent/
 │   ├── controllers/
 │   │   └── agentController.js    # Request orchestration
 │   ├── services/
-│   │   ├── geminiService.js      # Gemini 2.0 Flash integration
+│   │   ├── geminiService.js      # Google GenAI SDK integration (Gemini 1.5 Flash)
 │   │   ├── intentService.js      # Hybrid intent detection
 │   │   ├── sentimentService.js   # Keyword sentiment analysis
 │   │   ├── orderService.js       # Order lookup & returns
@@ -241,30 +242,28 @@ Human agent sends a reply to a conversation.
 
 ---
 
-## 🌐 Deployment
+## 🌐 Deployment (Google Cloud)
 
-### Frontend → Vercel
+### Backend → Google Cloud Run
 
-```bash
-cd frontend
-npx vercel --prod
-```
+1.  **Containerize**: The project includes a `Dockerfile` for the backend.
+2.  **Push to Artifact Registry**:
+    ```bash
+    gcloud builds submit --tag gcr.io/[PROJECT_ID]/alex-backend
+    ```
+3.  **Deploy to Cloud Run**:
+    ```bash
+    gcloud run deploy alex-backend --image gcr.io/[PROJECT_ID]/alex-backend --platform managed --set-env-vars "GEMINI_API_KEY=your_key"
+    ```
 
-Set environment variable in Vercel:
-```
-NEXT_PUBLIC_API_URL=https://your-backend.onrender.com
-```
+### Frontend → Google Cloud Run (or Vercel)
 
-### Backend → Render
-
-1. Push `backend/` to a GitHub repository
-2. Create a **Web Service** on [Render](https://render.com)
-3. Set **Build Command**: `npm install`
-4. Set **Start Command**: `node server.js`
-5. Add environment variable:
-```
-GEMINI_API_KEY=your_key_here
-```
+1.  **Build**: `npm run build`
+2.  **Deploy**: Similar to backend, using the `Dockerfile` in the frontend directory.
+3.  Set environment variable:
+    ```
+    NEXT_PUBLIC_API_URL=https://alex-backend-xxxxx.a.run.app
+    ```
 
 ---
 
@@ -277,8 +276,10 @@ GEMINI_API_KEY=your_key_here
 | Voice Input | Web Speech API (SpeechRecognition) |
 | Voice Output | Web Speech API (SpeechSynthesis) |
 | Backend | Node.js + Express 4 |
-| AI Model | Google Gemini 2.0 Flash |
-| AI SDK | @google/generative-ai |
+| AI Model | **Google Gemini 1.5 Flash** |
+| AI SDK | **Google Generative AI SDK** (`@google/generative-ai`) |
+| Infrastructure | **Google Cloud Platform (GCP)** |
+| Deployment | **Google Cloud Run** |
 | Database | JSON flat files (mock) |
 | Session Memory | In-memory Map (Node.js) |
 
@@ -305,4 +306,4 @@ MIT — feel free to use this project for learning and demos.
 
 ---
 
-*Built with ❤️ using Google Gemini 2.0 Flash AI*
+*Built with ❤️ using Google Gemini 1.5 Flash AI & Google Cloud*
