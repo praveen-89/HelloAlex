@@ -1,6 +1,6 @@
 # AI Customer Support Voice Agent 🤖
 
-> A production-ready, voice-powered AI customer support system for e-commerce, built with **Next.js 14**, **Express**, and **Google Gemini 1.5 Flash** (via **Google Generative AI SDK**), deployed on **Google Cloud**.
+> A production-ready, voice-powered AI customer support system for e-commerce, built with **Next.js 14**, **Express**, and **Google Gemini 2.5 Flash** (via **Google Generative AI SDK**), deployed on **Google Cloud**.
 
 ![Project Banner](https://img.shields.io/badge/AI-Gemini_1.5_Flash-blue?style=for-the-badge&logo=google)
 ![Google Cloud](https://img.shields.io/badge/Google_Cloud-Deployed-4285F4?style=for-the-badge&logo=google-cloud)
@@ -173,7 +173,7 @@ Health check.
 
 **Response:**
 ```json
-{ "status": "ok", "model": "gemini-2.0-flash" }
+{ "status": "ok", "model": "gemini-2.5-flash" }
 ```
 
 ---
